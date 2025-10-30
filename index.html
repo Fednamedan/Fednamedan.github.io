@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Даниил Федяков - Программист | Инженер-разработчик</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+
+        
+        :root {
+            --primary: #0a2463;
+            --secondary: #61a0af;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #0d0d1a;
+            --darker: #070711;
+            --gradient: linear-gradient(135deg, #0a2463 0%, #61a0af 100%);
+            --gradient-accent: linear-gradient(135deg, #61a0af 0%, #ff6b6b 100%);
+            --neon-glow: 0 0 10px rgba(97, 160, 175, 0.7);
+            --neon-glow-accent: 0 0 15px rgba(255, 107, 107, 0.7);
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--darker);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Анимированный фон с частицами */
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(ellipse at bottom, var(--dark) 0%, var(--darker) 100%);
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(97, 160, 175, 0.2);
+            animation: float-particle 20s infinite linear;
+        }
+        
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        /* Эффект стеклянного морфизма */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+        }
+        
+        /* Основная карточка */
+        .developer-card {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(13, 13, 26, 0.8);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(97, 160, 175, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: cardEntrance 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.4s ease;
+        }
+        
+        .developer-card:hover {
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        @keyframes cardEntrance {
+            0% { 
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .card-header {
+            background: var(--gradient);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .profile-container {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 25px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
+            box-shadow: var(--neon-glow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        
+        .profile-image:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .profile-image:hover:before {
+            left: 100%;
+        }
+        
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(97, 160, 175, 0.8);
+        }
+        
+        .name {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, var(--secondary), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .title {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+            font-weight: 500;
+        }
+        
+        .card-body {
+            padding: 50px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.7rem;
+            margin-bottom: 25px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid rgba(97, 160, 175, 0.3);
+            padding-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .section-title i {
+            text-shadow: var(--neon-glow);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+        }
+        
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(97, 160, 175, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .skill-item:hover:before {
+            opacity: 1;
+        }
+        
+        .skill-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--secondary);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .education-item, .work-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-left: 4px solid var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .education-item:before, .work-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(97, 160, 175, 0.05) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .education-item:hover:before, .work-item:hover:before {
+            opacity: 1;
+        }
+        
+        .education-item:hover, .work-item:hover {
+            transform: translateX(8px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .education-item h3, .work-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .education-item p, .work-item p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(97, 160, 175, 0.05) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .contact-item:hover:before {
+            opacity: 1;
+        }
+        
+        .contact-item:hover {
+            transform: translateX(8px);
+            background: rgba(255, 255, 255, 0.08);
+            border-left: 4px solid var(--secondary);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            transition: all 0.4s;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-item:hover .contact-icon {
+            background: var(--gradient-accent);
+            transform: scale(1.1);
+        }
+        
+        .contact-details {
+            flex: 1;
+        }
+        
+        .contact-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .contact-details p {
+            opacity: 0.9;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .contact-details p:hover {
+            color: var(--secondary);
+        }
+        
+        .personal-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .info-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .info-item:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(97, 160, 175, 0.05) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .info-item:hover:before {
+            opacity: 1;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .info-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        /* Секция проектов */
+        .projects-section {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .project-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(97, 160, 175, 0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        
+        .project-card:hover:before {
+            opacity: 1;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--secondary);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-image {
+            height: 180px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-image:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+        }
+        
+        .project-content {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .project-description {
+            margin-bottom: 20px;
+            flex: 1;
+            opacity: 0.9;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .tech-tag {
+            background: rgba(97, 160, 175, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(97, 160, 175, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .tech-tag:hover {
+            background: rgba(97, 160, 175, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--light);
+            font-size: 0.95rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex: 1;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .project-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: var(--gradient);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: -1;
+        }
+        
+        .project-link:hover:before {
+            width: 100%;
+        }
+        
+        .project-link:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Эффект печатающегося текста */
+        .typing-text {
+            overflow: hidden;
+            border-right: 2px solid var(--secondary);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--secondary) }
+        }
+        
+        /* Пульсирующая анимация для важных элементов */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Уровни навыков */
+        .skill-level {
+            display: inline-block;
+            margin-left: 5px;
+            font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            background: rgba(97, 160, 175, 0.2);
+            border: 1px solid rgba(97, 160, 175, 0.3);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .card-body {
+                grid-template-columns: 1fr;
+                padding: 40px 30px;
+                gap: 30px;
+            }
+            
+            .name {
+                font-size: 2.5rem;
+            }
+            
+            .personal-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card-body {
+                padding: 30px 20px;
+            }
+            
+            .name {
+                font-size: 2.2rem;
+            }
+            
+            .title {
+                font-size: 1.2rem;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                font-size: 50px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-header {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .name {
+                font-size: 1.8rem;
+            }
+            
+            .title {
+                font-size: 1rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимированный фон с частицами -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- Основная карточка -->
+    <div class="developer-card glass">
+        <div class="card-header">
+            <div class="profile-container">
+                <div class="profile-image">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h1 class="name">Даниил Федяков</h1>
+                <p class="title typing-text">Программист | Инженер-разработчик (junior)</p>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <div class="left-column">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-laptop-code"></i> Навыки</h2>
+                    <div class="skills-grid">
+                        <div class="skill-item">1С <span class="skill-level">junior</span></div>
+                        <div class="skill-item">Java <span class="skill-level">middle</span></div>
+                        <div class="skill-item">Python <span class="skill-level">middle</span></div>
+                        <div class="skill-item">MySQL <span class="skill-level">middle</span></div>
+                        <div class="skill-item">NoSQL <span class="skill-level">junior</span></div>
+                        <div class="skill-item">PostgreSQL <span class="skill-level">middle</span></div>
+                        <div class="skill-item">GIT <span class="skill-level">HIGH</span></div>
+                        <div class="skill-item">UML <span class="skill-level">HIGH</span></div>
+                        <div class="skill-item">Linux <span class="skill-level">middle</span></div>
+                        <div class="skill-item">HTML <span class="skill-level">HIGH</span></div>
+                        <div class="skill-item">CSS <span class="skill-level">HIGH</span></div>
+                        <div class="skill-item">JavaScript <span class="skill-level">junior</span></div>
+                        <div class="skill-item">C <span class="skill-level">junior</span></div>
+                        <div class="skill-item">C++ <span class="skill-level">junior</span></div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Образование</h2>
+                    <div class="education-item">
+                        <h3>Нижегородский радиотехнический колледж (2021 - 2025)</h3>
+                        <p>Информационные системы и программирование</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Высшая школа экономики (2025 - 2029)</h3>
+                        <p>Программная инженерия</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-briefcase"></i> Опыт работы (6 месяцев)</h2>
+                    <div class="work-item">
+                        <h3>Сбер</h3>
+                        <p>Старший инженер · 2 месяца</p>
+                    </div>
+                    <div class="work-item">
+                        <h3>НАО Гидромаш</h3>
+                        <p>Инженер-программист · Работаю сейчас</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Личная информация</h2>
+                    <div class="personal-info">
+                        <div class="info-item">
+                            <h3>Дата рождения</h3>
+                            <p>02.12.2005</p>
+                        </div>
+                        <div class="info-item">
+                            <h3>Возраст</h3>
+                            <p id="age"></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2 class="section-title"><i class="fas fa-address-book"></i> Контакты</h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Телефон</h3>
+                                <p id="phone">+7 (XXX) XXX-XX-XX</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p id="email">example@domain.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Секция проектов -->
+            <div class="section projects-section">
+                <h2 class="section-title"><i class="fas fa-rocket"></i> Личные проекты</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Приложение интернет магазина</h3>
+                            <p class="project-description">Многофункциональное приложение для покупки товаров с разделением прав доступа.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Java</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaFX</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                    <span>Исходный код</span>
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span>Демо</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-paw"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Интернет зоомагазин</h3>
+                            <p class="project-description">Веб-приложение для покупки зоотоваров с удобным интерфейсом и системой заказов.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">PHP</span>
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">MySQL</span>
+                                <span class="tech-tag">CSS</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                    <span>Исходный код</span>
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span>Демо</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card">
+                        <div class="project-image">
+                            <i class="fas fa-tooth"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Стоматологическая клиника на 1С</h3>
+                            <p class="project-description">Полнофункциональная стоматологическая клиника с интеграцией с 1С:Предприятие.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">1С</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">REST API</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i>
+                                    <span>Исходный код</span>
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span>Демо</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создание частиц для анимированного фона
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Случайные размеры и позиции
+                const size = Math.random() * 15 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 20;
+                const duration = Math.random() * 10 + 15;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Вычисление возраста на основе даты рождения
+        function calculateAge(birthDate) {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            
+            return age;
+        }
+        
+        // Установка возраста
+        document.getElementById('age').textContent = calculateAge('2005-12-02') + ' лет';
+        
+        // Показать контактные данные при клике
+        document.getElementById('phone').addEventListener('click', function() {
+            if (this.textContent === '+7 (XXX) XXX-XX-XX') {
+                this.textContent = '+7 (930) 694-40-93'; 
+                this.classList.add('pulse');
+                setTimeout(() => this.classList.remove('pulse'), 2000);
+            }
+        });
+        
+        document.getElementById('email').addEventListener('click', function() {
+            if (this.textContent === 'example@domain.com') {
+                this.textContent = 'danechkafedyakov@yandex.com'; 
+                this.classList.add('pulse');
+                setTimeout(() => this.classList.remove('pulse'), 2000);
+            }
+        });
+        
+        // Параллакс эффект для фона
+        document.addEventListener('mousemove', (e) => {
+            const bg = document.querySelector('.particles-container');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            bg.style.transform = `translate(-${x * 20}px, -${y * 20}px)`;
+        });
+        
+        // Анимация появления элементов при скролле
+        const projectCards = document.querySelectorAll('.project-card');
+        const skillItems = document.querySelectorAll('.skill-item');
+        const educationItems = document.querySelectorAll('.education-item, .work-item');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        projectCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+        
+        skillItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(20px)';
+            item.style.transition = `opacity 0.5s ease ${index * 0.05}s, transform 0.5s ease ${index * 0.05}s`;
+            observer.observe(item);
+        });
+        
+        educationItems.forEach((item, index) => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            item.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+            observer.observe(item);
+        });
+        
+        // Инициализация при загрузке страницы
+        window.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+    </script>
+</body>
+</html>
