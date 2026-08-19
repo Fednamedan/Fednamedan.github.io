@@ -1692,16 +1692,15 @@ const RECIPES = [
   {name:"Торт с маком и изюмом",cat:"Праздничные и сложные блюда",time:80,ingr:[ing("Мука пшеничная",300,"г"),ing("Мак",150,"г"),ing("Изюм",100,"г"),ing("Сливочное масло",150,"г")],steps:["Замесить тесто с маком, выпечь коржи.","Промазать кремом."]}
 ];
 
-/* ============ STATE & STORAGE ============ */
-let pantry = []; // {name, amt, unit}
-const memoryStore = {};
+* ============ STATE & STORAGE ============ */
+let pantry = [];
 function storageGet(k){
   try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; }
-  catch(e){ return memoryStore[k] || null; }
+  catch(e){ return null; }
 }
 function storageSet(k,v){
   try{ localStorage.setItem(k, JSON.stringify(v)); }
-  catch(e){ memoryStore[k] = v; }
+  catch(e){}
 }
 function loadPantry(){ pantry = storageGet('kladovka_pantry') || []; }
 function savePantry(){ storageSet('kladovka_pantry', pantry); }
@@ -1804,7 +1803,7 @@ function renderPantry(){
   });
 }
 
-/* ============ ADD PRODUCT (free form) ============ */
+/* ============ ADD PRODUCT ============ */
 document.getElementById('freeAddBtn').addEventListener('click', addFreeProduct);
 document.getElementById('freeInput').addEventListener('keydown', e=>{ if(e.key==='Enter') addFreeProduct(); });
 function addFreeProduct(){
@@ -1837,26 +1836,31 @@ function getDifficulty(r) {
     const steps = r.steps.length;
     const t = r.time;
 
+    // Количество ингредиентов
     if (n >= 8) score += 2;
     else if (n >= 6) score += 1;
 
+    // Количество шагов приготовления
     if (steps >= 6) score += 2;
     else if (steps >= 4) score += 1;
 
-    if (t >= 90) score += 2;
+    // Время приготовления
+    if (t >= 90) score += 2;      // очень долгие блюда
     else if (t >= 60) score += 1;
 
+    // Бонус за категорию (это самое важное)
     if (r.cat === "Праздничные и сложные блюда") score += 2;
     else if (r.cat === "Выпечка и десерты") score += 1;
-    else if (r.cat === "Завтраки") score -= 1;
+    else if (r.cat === "Завтраки") score -= 1; // обычно простые
 
+    // Не даём уйти в минус
     if (score < 0) score = 0;
 
+    // Итоговое распределение
     if (score <= 2) return "Легко";
     if (score <= 4) return "Средне";
     return "Сложно";
 }
-
 /* ============ RECIPES SCREEN ============ */
 let activeTab = 'all';
 document.querySelectorAll('.tab-btn').forEach(b=>{
@@ -1896,7 +1900,7 @@ function renderRecipes(){
     : `${scored.length} рецептов найдено`;
 
   if(scored.length===0){
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;"><div class="display">Ничего не нашлось</div>Попробуй изменить фильтры или добавить больше продуктов.</div>';
+    grid.innerHTML = '<div class="empty-state"><div class="display">Ничего не нашлось</div>Попробуй изменить фильтры или добавить больше продуктов.</div>';
     return;
   }
 
@@ -1921,11 +1925,10 @@ function renderRecipes(){
   });
 }
 
-/* ============ RECIPE DETAIL MODAL ============ */
+/* ============ MODAL ============ */
 const overlay = document.getElementById('modalOverlay');
 function openModal(r,m){
   const body = document.getElementById('modalBody');
-  body.classList.remove('modal-wide');
   const d = getDifficulty(r);
   const ingHtml = r.ingr.map(need=>{
     const p = pantry.find(x=>x.name.toLowerCase()===need.name.toLowerCase());
@@ -1951,16 +1954,15 @@ function closeModal(){ overlay.classList.add('hidden'); }
 overlay.addEventListener('click', e=>{ if(e.target===overlay) closeModal(); });
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
 
-/* ============ SHARED: render a week grid + shopping list into a container ============ */
+/* ============ WEEK / RANDOM HELPERS ============ */
 function renderWeekBlock(container, days, shopping, opts){
   const mealRow = (label, item)=>{
     if(!item) return `<div class="week-meal"><span class="week-meal-label">${label}</span><span class="week-meal-name">—</span></div>`;
-    const m = item.m;
-    const badgeClass = m.missing.length===0 ? 'badge-full' : (m.have>0 ? 'badge-part' : 'badge-none');
+    const badgeClass = item.m && item.m.missing && item.m.missing.length===0 ? 'badge-full' : (item.m && item.m.have>0 ? 'badge-part' : 'badge-none');
     return `<div class="week-meal" data-recipe="${item.r.name.replace(/"/g,'&quot;')}">
       ${label ? `<span class="week-meal-label">${label}</span>` : ''}
       <span class="week-meal-name">${item.r.name}</span>
-      <span class="badge ${badgeClass}">${item.badge}</span>
+      <span class="badge ${badgeClass}">${item.badge || ''}</span>
     </div>`;
   };
   const daysHtml = days.map(d=>`
@@ -1991,7 +1993,7 @@ function renderWeekBlock(container, days, shopping, opts){
   });
 }
 
-/* ============ WEEK SCREEN (by pantry) ============ */
+/* ============ WEEK SCREEN ============ */
 const WEEK_DAYS = ['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
 const WEEK_DINNER_CATS = ['Мясные блюда','Птица','Рыба','Паста и крупы','Овощные блюда','Мировая кухня','Праздничные и сложные блюда'];
 const WEEK_LUNCH_CATS = ['Супы','Салаты'];
@@ -2034,7 +2036,7 @@ function renderWeekScreen(){
   const container = document.getElementById('weekResults');
   if(pantry.length===0){
     container.innerHTML = `
-      <div class="empty-state" style="padding:50px 20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);">
+      <div class="empty-state" style="background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);">
         <div class="display" style="font-size:20px;margin-bottom:8px;">Кладовка пока пуста</div>
         <p style="margin:0 0 18px;">Добавь продукты — и здесь появится меню на неделю из того, что у тебя есть дома.</p>
         <button class="btn btn-week" id="goToPantryBtn" style="width:auto;">Перейти в кладовку</button>
@@ -2057,10 +2059,14 @@ function renderWeekScreen(){
     actionsHtml: '<button class="btn btn-ghost" id="reshuffleWeekBtn">🔀 Пересобрать</button>',
     shoppingTitle: 'Чего не хватает на всю неделю'
   });
-  document.getElementById('reshuffleWeekBtn').addEventListener('click', renderWeekScreen);
+  // обработчик вешается на вновь созданную кнопку
+  const reshuffleBtn = document.getElementById('reshuffleWeekBtn');
+  if (reshuffleBtn) {
+    reshuffleBtn.addEventListener('click', renderWeekScreen);
+  }
 }
 
-/* ============ RANDOM SCREEN (by difficulty, no pantry) ============ */
+/* ============ RANDOM SCREEN ============ */
 const RANDOM_MENU_EXCLUDE_CATS = ['Выпечка и десерты','Закуски'];
 function shuffleArr(arr){
   const a = arr.slice();
@@ -2075,17 +2081,26 @@ function generateRandomWeek(difficulty){
   if(difficulty) pool = pool.filter(r=>getDifficulty(r)===difficulty);
   if(pool.length===0) pool = RECIPES.filter(r=>!RANDOM_MENU_EXCLUDE_CATS.includes(r.cat));
   pool = shuffleArr(pool);
-  const chosen = [], catCount = {};
+  const chosen = [];
+  const usedNames = new Set();
+  const catCount = {};
   for(const r of pool){
     if(chosen.length>=7) break;
     const c = catCount[r.cat]||0;
     if(c>=2) continue;
-    chosen.push(r); catCount[r.cat]=c+1;
+    if(usedNames.has(r.name)) continue;
+    chosen.push(r);
+    usedNames.add(r.name);
+    catCount[r.cat] = (catCount[r.cat]||0)+1;
   }
+  // Если не набрали 7, добираем из оставшихся
   if(chosen.length<7){
     for(const r of pool){
       if(chosen.length>=7) break;
-      if(!chosen.includes(r)) chosen.push(r);
+      if(!usedNames.has(r.name)){
+        chosen.push(r);
+        usedNames.add(r.name);
+      }
     }
   }
   return chosen;
@@ -2153,5 +2168,7 @@ renderQuickCats();
 renderAll();
 showScreen('pantry');
 </script>
+</body>
+</html>
 </body>
 </html>
