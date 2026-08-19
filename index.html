@@ -1692,7 +1692,6 @@ const RECIPES = [
   {name:"Торт с маком и изюмом",cat:"Праздничные и сложные блюда",time:80,ingr:[ing("Мука пшеничная",300,"г"),ing("Мак",150,"г"),ing("Изюм",100,"г"),ing("Сливочное масло",150,"г")],steps:["Замесить тесто с маком, выпечь коржи.","Промазать кремом."]}
 ];
 
-* ============ STATE & STORAGE ============ */
 let pantry = [];
 function storageGet(k){
   try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : null; }
